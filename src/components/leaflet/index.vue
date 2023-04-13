@@ -25,36 +25,16 @@ const app = new Vue({
     zoom: 2,
     center: [],
     markers: [],
-    layers: ['https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png']
+    layers: ['https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+    defaultOptions: {
+      zoomControl: false,
+      attributionControl: false
+    }
   }),
   render(h) {
-    console.log('render');
     const { zoom, center, layers, markers } = this
     const vlayers = layers.map(layer => h('l-tile-layer', { props: { detectRetina: true, url: layer } }))
-    const vmarkers = markers.map(marker => {
-      return h('l-marker', {
-        props: {
-          'lat-lng': [marker.latitude, marker.longitude],
-          icon: icon({
-            iconUrl: marker.icon,
-            iconSize: [20, 20],
-            iconAnchor: [20, 20]
-          })
-        }
-      })
-    })
-    return h(
-      'l-map',
-      {
-        class: 'h-screen w-screen',
-        props: { zoom, options: { zoomControl: false, attributionControl: false, touchZoom: false, preferCanvas: true } },
-        on: {
-          'update:zoom': v => this.$emit('zoom-change', v),
-          touchstart: e => e.preventDefault()
-        }
-      },
-      vlayers.concat(vmarkers)
-    )
+    return h('l-map', { class: 'h-screen w-screen', props: { zoom, options: this.defaultOptions } }, vlayers)
   }
 })
 

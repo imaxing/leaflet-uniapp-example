@@ -10,10 +10,7 @@
 
 <script>
 export default {
-  mpType: 'app',
-  onLaunch() {
-    this.$restore()
-  }
+  mpType: 'app'
 }
 </script>
 

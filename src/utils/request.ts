@@ -15,10 +15,10 @@ instance.interceptors.request.use(
 )
 
 instance.interceptors.response.use(
-  (response:any) => {
+  (response: any) => {
     const { statusCode, data } = response
     if (statusCode !== 200) {
-      uni.showToast({ title: '请求失败', icon: 'error' })
+      uni.showToast({ title: 'fail', icon: 'error' })
       return Promise.reject(data)
     }
 
